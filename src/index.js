@@ -9,15 +9,31 @@ import axios from 'axios';
 import createSagaMiddleware from 'redux-saga';
 import { takeEvery, put } from 'redux-saga/effects';
 
+const giphyListReducer = (state = [], action) => {
+    if (action.type === 'SET_SEARCH') {
+        return action.payload;
+    }
+    return state;
+}
 
-
-
-
-
+//get request path app.js -> index.js (saga) -> server.js -> database
+function* fetchSearch() {
+    //try catch for errors
+    try{
+        //make our get request to server side 
+        //response is our rows of data
+        let response = yield axios.get('/api/category');
+        console.log(response.data);
+        //dispatch (put) to save in reducer
+        yield put({ type: 'SET_SEARCH', payload: response.data });
+    } catch(error) {
+        console.log('error fetching search', error);
+    }
+}
 
 //saga root, watching for actions from app.js
 function* watcherSaga() {
-
+    yield takeEvery('FETCH_SEARCH', fetchSearch);
 }
 
 //saga middleware creation
@@ -26,7 +42,7 @@ const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
     //reducers run every time an action is placed
     combineReducers({
-
+        giphyListReducer,
     }),
     //logger always goes last
     applyMiddleware(sagaMiddleware, logger),
