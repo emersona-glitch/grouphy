@@ -46,7 +46,7 @@ class Search extends Component {
                 <input onChange={event => {this.handleChange(event)}} placeholder="giphy tag search"></input>
                 <button onClick={this.generateRandom}>Search using tag</button>
                 <br/>
-                <img src={this.props.reduxState.random} alt="a random giphy"></img>
+                <img src={this.props.reduxState.giphyListReducer} alt="a random giphy"></img>
             </>
         )
 

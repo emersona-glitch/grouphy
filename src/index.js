@@ -25,7 +25,7 @@ function* fetchSearch() {
         let response = yield axios.get('/api/category');
         console.log(response.data);
         //dispatch (put) to save in reducer
-        yield put({ type: 'SET_SEARCH', payload: response.data });
+        yield put({ type: 'SET_SEARCH', payload: response.data.data.url });
     } catch(error) {
         console.log('error fetching search', error);
     }
