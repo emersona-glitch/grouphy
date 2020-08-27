@@ -55,3 +55,11 @@ class Search extends Component {
 
 
 }
+
+const putReduxDataProps = (reduxState) => {
+    return {
+        reduxState
+    }
+}
+
+export default connect(putReduxDataProps)(Search);
