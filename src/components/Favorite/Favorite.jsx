@@ -15,10 +15,12 @@ class Favorite extends Component {
     }
 
     handleCategory = (event) => {
+        
         console.log('setting category')
         this.setState({
             category: event.target.value
         })
+
     }
 
     handleClick = () => {
