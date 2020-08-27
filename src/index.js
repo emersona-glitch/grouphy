@@ -22,10 +22,10 @@ function* fetchSearch() {
     try{
         //make our get request to server side 
         //response is our rows of data
-        let response = yield axios.get('/api/category');
+        let response = yield axios.get('/api/search/');
         console.log(response.data);
         //dispatch (put) to save in reducer
-        yield put({ type: 'SET_SEARCH', payload: response.data.data.url });
+        yield put({ type: 'SET_SEARCH', payload: response.data.data.image_original_url });
     } catch(error) {
         console.log('error fetching search', error);
     }
