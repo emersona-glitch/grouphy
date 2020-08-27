@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-
+import Search from '../Search/Search';
+import { connect } from 'react-redux';
 
 class App extends Component {
 
@@ -7,10 +8,17 @@ class App extends Component {
     return (
       <div>
         <h1>Giphy Search!</h1>
+        <Search />
       </div>
     );
   }
   
 }
 
-export default App;
+const putReduxDataProps = (reduxState) => {
+  return {
+    reduxState
+  }
+}
+
+export default connect(putReduxDataProps)(App);
