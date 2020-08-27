@@ -17,15 +17,15 @@ const giphyListReducer = (state = [], action) => {
 }
 
 //get request path app.js -> index.js (saga) -> server.js -> database
-function* fetchSearch() {
+function* fetchSearch(action) {
     //try catch for errors
     try{
         //make our get request to server side 
         //response is our rows of data
-        let response = yield axios.get('/api/search/');
-        console.log(response.data);
+        let response = yield axios.get(`/api/search?q=${action.payload}`);
+        console.log(response.data.data);
         //dispatch (put) to save in reducer
-        yield put({ type: 'SET_SEARCH', payload: response.data.data.image_original_url });
+        yield put({ type: 'SET_SEARCH', payload: response.data.data.images.original.url });
     } catch(error) {
         console.log('error fetching search', error);
     }

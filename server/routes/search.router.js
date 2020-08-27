@@ -5,9 +5,9 @@ const router = express.Router();
 require('dotenv').config();
 
 router.get('/', (req, res) => {
-    console.log(req.body);
+    console.log(req.query.q);
     console.log('test');
-    axios.get(`http://api.giphy.com/v1/gifs/search?api_key=${process.env.GIPHY_API_KEY}&q=${req.body.tag}`)
+    axios.get(`http://api.giphy.com/v1/gifs/search?api_key=${process.env.GIPHY_API_KEY}&q=${req.query.q}`)
     .then((response) => {
         console.log(response.data); //this should be a bunch of data from giphy
         res.send(response.data);

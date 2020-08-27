@@ -25,7 +25,7 @@ class Search extends Component {
     componentDidMount = () => {
         
         this.generateRandom()
-
+        
     }
 
 
@@ -35,6 +35,7 @@ class Search extends Component {
             type: 'FETCH_SEARCH', payload: this.state.tag
         });
         console.log(this.state.tag);
+        console.log(this.props.reduxState.giphyListReducer);
     }
 
 
