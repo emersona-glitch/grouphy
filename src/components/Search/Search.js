@@ -1,33 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
+
 
 class Search extends Component {
 
     state = {
-
-        tag: 'starting string'
-
+        tag: 'welcome'
     }
-
 
 
     handleChange = (event) => {
-        
         this.setState({
             tag: event.target.value
         })
-
     }
-
-
 
     componentDidMount = () => {
-        
         this.generateRandom()
-        
     }
-
 
 
     generateRandom = () => {
@@ -37,9 +27,15 @@ class Search extends Component {
         console.log(this.state.tag);
     }
 
+    addToFavorites = () => {
+        this.props.dispatch({
+            type: 'ADD_FAVORITE', payload: 'kk'
+        })
+    }
 
 
-    render () {
+
+    render() {
 
         return (
             <>
@@ -48,6 +44,7 @@ class Search extends Component {
                 <br/>
                 <img src={this.props.reduxState.giphyListReducer} alt="a random giphy"></img>
             </>
+               
         )
 
     }

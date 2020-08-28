@@ -12,7 +12,15 @@ import { takeEvery, put } from 'redux-saga/effects';
 const giphyListReducer = (state = '', action) => {
     if (action.type === 'SET_SEARCH') {
         return action.payload;
+        
     }
+    return state;
+}
+
+const favoritesReducer = (state = [], action) => {
+    if (action.type === 'SET_FAVORITES'){
+        return action.payload;
+    } 
     return state;
 }
 
@@ -32,9 +40,42 @@ function* fetchSearch(action) {
     }
 }
 
+function* fetchFavorites(){
+    try{
+        let response = yield axios.get('/api/favorite');
+        console.log(response.data);
+        yield put ({type: 'SET_FAVORITES', payload: response.data.data});
+    } catch (error) {
+        console.log('error in getting favorites', error)
+    }
+}
+
+function* putCategory(){
+    try{
+        yield
+
+    } catch(error){
+        console.log('error in put category', error)
+    }
+}
+
+function* addFavorite(action){
+    try{
+        let response = yield axios.post('/api/favorite', action.payload)
+        console.log(response.data)
+        yield put ({type: 'SET_FAVORITES'})
+    } catch (error) {
+        console.log('error setting favorite', error)
+    }
+}
+
+
 //saga root, watching for actions from app.js
 function* watcherSaga() {
     yield takeEvery('FETCH_SEARCH', fetchSearch);
+    yield takeEvery('FETCH_FAVORITES', fetchFavorites);
+    yield takeEvery('PUT_CATEGORY', putCategory);
+    yield takeEvery('ADD_FAVORITE', addFavorite);
 }
 
 //saga middleware creation
@@ -44,6 +85,7 @@ const store = createStore(
     //reducers run every time an action is placed
     combineReducers({
         giphyListReducer,
+        favoritesReducer
     }),
     //logger always goes last
     applyMiddleware(sagaMiddleware, logger),
