@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 
-class Favorite extends Component {
+class Favorites extends Component {
 
     state = {
         category: ''
@@ -58,7 +58,7 @@ class Favorite extends Component {
                     return (
                         <>
                             <ul key={i}>
-                                <img src={favorite.images.downsized.url} alt='a favorite gif'></img>
+                                <img src={this.props.reduxState.favoritesReducer} alt="a random giphy"></img>
                             </ul>
                             <select name="categories" onChange={this.handleCategory}>
                                 <option value='funny'>Funny</option>
@@ -82,4 +82,4 @@ const mapReduxStateToProps = reduxState => ({
     reduxState
 });
 
-export default connect(mapReduxStateToProps)(Favorite);
+export default connect(mapReduxStateToProps)(Favorites);
