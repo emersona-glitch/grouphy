@@ -44,16 +44,18 @@ function* fetchFavorites(){
     try{
         let response = yield axios.get('/api/favorite');
         console.log(response.data);
-        yield put ({type: 'SET_FAVORITES', payload: response.data.data});
+        yield put ({type: 'SET_FAVORITES', payload: response.data});
     } catch (error) {
         console.log('error in getting favorites', error)
     }
 }
 
-function* putCategory(){
+function* putCategory(action){
     try{
-        yield
-
+        let favId = action.payload.id
+        console.log('put', favId)
+        yield axios.put(`/api/favorite/${favId}`, action.payload)
+        yield put ({ type: 'FETCH_FAVORITES' })
     } catch(error){
         console.log('error in put category', error)
     }

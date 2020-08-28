@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 class Favorites extends Component {
 
     state = {
-        category: ''
+        category: 0
     }
 
     componentDidMount() {
@@ -47,18 +47,19 @@ class Favorites extends Component {
         }
     }
 
-    handleClick = () => {
-        this.props.dispatch({ type: 'PUT_CATEGORY', payload: this.state.category })
+    handleClick = (id) => {
+        let gifToUpdate = { id: id, category: this.state.category}
+        this.props.dispatch({ type: 'PUT_CATEGORY', payload: gifToUpdate })
     }
 
     render() {
         return (
             <div>
-                {this.props.reduxState.favoritesReducer.map((favorite, i) => {
+                {this.props.reduxState.favoritesReducer.map((favorite) => {
                     return (
                         <>
-                            <ul key={i}>
-                                <img src={this.props.reduxState.favoritesReducer} alt="a random giphy"></img>
+                            <ul key={favorite.id}>
+                                <img src={favorite.url} alt="a random giphy"></img>
                             </ul>
                             <select name="categories" onChange={this.handleCategory}>
                                 <option value='funny'>Funny</option>
@@ -67,7 +68,7 @@ class Favorites extends Component {
                                 <option value='nsfw'>NSFW</option>
                                 <option value='meme'>Meme</option>
                             </select>
-                            <button onClick={this.handleClick}>Add to Category</button>
+                            <button onClick={() => this.handleClick(favorite.id)}>Add to Category</button>
                         </>
                     )
                 })}
