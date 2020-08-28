@@ -9,7 +9,7 @@ import axios from 'axios';
 import createSagaMiddleware from 'redux-saga';
 import { takeEvery, put } from 'redux-saga/effects';
 
-const giphyListReducer = (state = [], action) => {
+const giphyListReducer = (state = '', action) => {
     if (action.type === 'SET_SEARCH') {
         return action.payload;
         
@@ -33,7 +33,8 @@ function* fetchSearch(action) {
         let response = yield axios.get(`/api/search?q=${action.payload}`);
         console.log(response.data.data);
         //dispatch (put) to save in reducer
-        yield put({ type: 'SET_SEARCH', payload: response.data.data });
+        let randomIndex = Math.floor(Math.random() * 26);
+        yield put({ type: 'SET_SEARCH', payload: response.data.data[randomIndex].images.original.url });
     } catch(error) {
         console.log('error fetching search', error);
     }

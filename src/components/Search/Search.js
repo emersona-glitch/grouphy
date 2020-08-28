@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 class Search extends Component {
 
     state = {
-        tag: ''
+        tag: 'welcome'
     }
 
 
@@ -25,7 +25,6 @@ class Search extends Component {
             type: 'FETCH_SEARCH', payload: this.state.tag
         });
         console.log(this.state.tag);
-        console.log(this.props.reduxState.giphyListReducer);
     }
 
     addToFavorites = () => {
@@ -40,22 +39,12 @@ class Search extends Component {
 
         return (
             <>
-                <input onChange={event => { this.handleChange(event) }} placeholder="giphy tag search"></input>
+                <input onChange={event => {this.handleChange(event)}} placeholder="giphy tag search"></input>
                 <button onClick={this.generateRandom}>Search using tag</button>
-                <br />
-                <div>
-                    {this.props.reduxState.giphyListReducer.map((gif, i) => {
-                        return (
-                            <>
-                            <img src={gif.images.downsized.url} alt="a random giphy" key={i}></img>
-                            <button onClick={this.addToFavorites}>Add to Favorites!</button>
-                            </>
-                        )
-
-                    })}
-                </div>
-
+                <br/>
+                <img src={this.props.reduxState.giphyListReducer} alt="a random giphy"></img>
             </>
+               
         )
 
     }

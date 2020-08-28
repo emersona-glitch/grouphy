@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import Search from '../Search/Search';
 import Favorite from '../Favorite/Favorite.jsx'
 import { connect } from 'react-redux';
+import './App.css';
 import { HashRouter as Router, Route, Link } from 'react-router-dom';
+
 
 class App extends Component {
 
