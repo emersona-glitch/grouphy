@@ -61,9 +61,10 @@ function* putCategory(){
 
 function* addFavorite(action){
     try{
-        let response = yield axios.post('/api/favorite', action.payload)
+        console.log(action.payload);
+        let response = yield axios.post('/api/favorite', {url: action.payload})
         console.log(response.data)
-        yield put ({type: 'SET_FAVORITES'})
+        yield put ({type: 'FETCH_FAVORITES'})
     } catch (error) {
         console.log('error setting favorite', error)
     }

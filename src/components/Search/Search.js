@@ -29,7 +29,7 @@ class Search extends Component {
 
     addToFavorites = () => {
         this.props.dispatch({
-            type: 'ADD_FAVORITE', payload: 'kk'
+            type: 'ADD_FAVORITE', payload: this.props.reduxState.giphyListReducer
         })
     }
 
@@ -39,12 +39,13 @@ class Search extends Component {
 
         return (
             <>
-                <input onChange={event => {this.handleChange(event)}} placeholder="giphy tag search"></input>
+                <input onChange={event => { this.handleChange(event) }} placeholder="giphy tag search"></input>
                 <button onClick={this.generateRandom}>Search using tag</button>
-                <br/>
+                <br />
                 <img src={this.props.reduxState.giphyListReducer} alt="a random giphy"></img>
+                <button onClick={this.addToFavorites}>Add to Favorites</button>
             </>
-               
+
         )
 
     }
