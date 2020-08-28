@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Search from '../Search/Search';
 import { connect } from 'react-redux';
+import './App.css';
 
 class App extends Component {
 

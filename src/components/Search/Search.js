@@ -6,7 +6,7 @@ class Search extends Component {
 
     state = {
 
-        tag: ''
+        tag: 'starting string'
 
     }
 
