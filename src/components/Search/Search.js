@@ -6,7 +6,7 @@ class Search extends Component {
 
     state = {
 
-        tag: 'dog'
+        tag: ''
 
     }
 
@@ -35,7 +35,6 @@ class Search extends Component {
             type: 'FETCH_SEARCH', payload: this.state.tag
         });
         console.log(this.state.tag);
-        console.log(this.props.reduxState.giphyListReducer);
     }
 
 
