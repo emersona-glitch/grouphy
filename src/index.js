@@ -12,6 +12,7 @@ import { takeEvery, put } from 'redux-saga/effects';
 const giphyListReducer = (state = [], action) => {
     if (action.type === 'SET_SEARCH') {
         return action.payload;
+        
     }
     return state;
 }
@@ -32,7 +33,7 @@ function* fetchSearch(action) {
         let response = yield axios.get(`/api/search?q=${action.payload}`);
         console.log(response.data.data);
         //dispatch (put) to save in reducer
-        yield put({ type: 'SET_SEARCH', payload: response.data.data.images.original.url });
+        yield put({ type: 'SET_SEARCH', payload: response.data.data });
     } catch(error) {
         console.log('error fetching search', error);
     }
@@ -42,7 +43,7 @@ function* fetchFavorites(){
     try{
         let response = yield axios.get('/api/favorite');
         console.log(response.data);
-        yield put ({type: 'SET_FAVORITES', payload: response.data});
+        yield put ({type: 'SET_FAVORITES', payload: response.data.data});
     } catch (error) {
         console.log('error in getting favorites', error)
     }
@@ -50,10 +51,20 @@ function* fetchFavorites(){
 
 function* putCategory(){
     try{
-        
+        yield
 
     } catch(error){
         console.log('error in put category', error)
+    }
+}
+
+function* addFavorite(action){
+    try{
+        let response = yield axios.post('/api/favorite', action.payload)
+        console.log(response.data)
+        yield put ({type: 'SET_FAVORITES'})
+    } catch (error) {
+        console.log('error setting favorite', error)
     }
 }
 
@@ -63,6 +74,7 @@ function* watcherSaga() {
     yield takeEvery('FETCH_SEARCH', fetchSearch);
     yield takeEvery('FETCH_FAVORITES', fetchFavorites);
     yield takeEvery('PUT_CATEGORY', putCategory);
+    yield takeEvery('ADD_FAVORITE', addFavorite);
 }
 
 //saga middleware creation
